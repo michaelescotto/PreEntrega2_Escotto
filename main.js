@@ -3,6 +3,12 @@ const mensajeError = () => {
     alert("Esa opción no existe, por favor intente nuevamente.");
 }
 
+//FUNCIÓN PARA VACIAR REL ARRAY DEL CARRITO.
+const vaciarCarrito = () => {
+    carrito = [];
+    alert("El carrito se a vaciado correctamente.")
+}
+
 //FUNCIÓN PARA CORRER EL MENÚ DEL CATÁLOGO
 const mostrarCatalogo = () => {
     let mensaje = "Catálogo de productos:\n\n"
@@ -21,17 +27,31 @@ const mostrarCatalogo = () => {
         mensajeError();
     }
 }
+
 //FUNCIÓN PARA CORRER EL MENÚ DEL CARRITO
 const mostrarCarrito = () => {
     let mensaje = "Carrito de compras:\n\n"
-    for ( let i = 0; i < carrito.length; i++){
-        mensaje += `${carrito[i].nombre} - $${carrito[i].precio}`
+    for (let i = 0; i < carrito.length; i++) {
+        mensaje += `${carrito[i].nombre} - $${carrito[i].precio}\n`
     }
     alert(mensaje);
 }
+
 //FUNCIÓN PARA CORRER EL MENÚ DE LA COMPRA
 const mostrarCompra = () => {
-
+    mostrarCarrito();
+    let total = carrito.reduce((sumaTotal, producto) => {
+        return sumaTotal + producto;
+    }, 0);
+    let confirmacion = prompt("¿Desea confirmar la compra?\n\n Escriba SI o NO").toLowerCase();
+    if (confirmacion === "si") {
+        alert("Compra realizada con éxito, !Muchas gracias por su compra!");
+        carrito = [];
+    } else if (confirmacion === "no") {
+        alert("La compra se ha cancelado, puedes retomar tu compra más tarde.");
+    } else {
+        mensajeError();
+    }
 }
 
 //ARRAY CON LOS OBJETOS DE LA TIENDA
@@ -42,20 +62,21 @@ const catalogo = [
     { nombre: "Zapatos", precio: 6300 },
     { nombre: "Medias", precio: 300 },
 ];
-//ARRAY VACÍO PARA GUARDAR LOS OBJETOS EN EL CARRITO
-const carrito = [];
 
+//ARRAY VACÍO PARA GUARDAR LOS OBJETOS EN EL CARRITO
+let carrito = [];
 
 //FUNCIÓN PARA CORRER EL MENÚ DE LA TIENDA
 const mostrarTienda = () => {
     while (true) {
         //VARIABLE CON LA ENTRADA PARA EL MENÚ
         let opcion = prompt(
-            "Bienvenido a nuestra tienda de ropa deportiva.\n\n" +
+            "Bienvenido a nuestra tienda de ropa deportiva.\n" +
             "Ingrese la opción deseada para interactuar en el menú:\n\n" +
             "    1. Ver el catálogo\n" +
             "    2. Ver el carrito\n" +
-            "    3. Finalizar la compra\n" +
+            "    3. Vaciar el carrito\n" +
+            "    4. Finalizar la compra\n" +
             "    0. Salir\n"
         );
         switch (opcion) {
@@ -66,6 +87,9 @@ const mostrarTienda = () => {
                 mostrarCarrito();
                 break;
             case "3":
+                vaciarCarrito();
+                break;
+            case "4":
                 mostrarCompra();
                 break;
             case "0":
