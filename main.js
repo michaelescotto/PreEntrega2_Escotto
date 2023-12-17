@@ -6,7 +6,7 @@ const mensajeError = () => {
 //FUNCIÓN PARA VACIAR REL ARRAY DEL CARRITO.
 const vaciarCarrito = () => {
     carrito = [];
-    alert("El carrito se a vaciado correctamente.")
+    alert("El carrito se vació correctamente.")
 }
 
 //FUNCIÓN PARA CORRER EL MENÚ DEL CATÁLOGO
@@ -30,19 +30,27 @@ const mostrarCatalogo = () => {
 
 //FUNCIÓN PARA CORRER EL MENÚ DEL CARRITO
 const mostrarCarrito = () => {
-    let mensaje = "Carrito de compras:\n\n"
-    for (let i = 0; i < carrito.length; i++) {
-        mensaje += `${carrito[i].nombre} - $${carrito[i].precio}\n`
+    if (carrito.length === 0) {
+        alert("El carrito no tiene ningún producto");
+    } else {
+        let mensaje = "Carrito de compras:\n\n"
+        for (let i = 0; i < carrito.length; i++) {
+            mensaje += `${carrito[i].nombre} - $${carrito[i].precio}\n`
+        }
+        alert(mensaje);
     }
-    alert(mensaje);
 }
 
 //FUNCIÓN PARA CORRER EL MENÚ DE LA COMPRA
 const mostrarCompra = () => {
-    mostrarCarrito();
     let total = carrito.reduce((sumaTotal, producto) => {
         return sumaTotal + producto.precio;
     }, 0);
+    if (total === 0) {
+        alert("El carrito está vacío. No hay nada que comprar.");
+        return;
+    }
+    mostrarCarrito();
     let confirmacion = prompt(`El total de la compra es de $${total}\n\n` + "¿Desea confirmar la compra?\n\n Escriba SI o NO").toLowerCase();
     if (confirmacion === "si") {
         alert("Compra realizada con éxito, !Muchas gracias por su compra!");
