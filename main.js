@@ -6,27 +6,31 @@ const mensajeError = () => {
 //FUNCIÓN PARA CORRER EL MENÚ DEL CATÁLOGO
 const mostrarCatalogo = () => {
     let mensaje = "Catálogo de productos:\n\n"
-    for (let i = 0; i < catalogo.length; i++){
+    for (let i = 0; i < catalogo.length; i++) {
         mensaje += `     ${i + 1}. ${catalogo[i].nombre} - $${catalogo[i].precio},00\n`;
     }
     let opcion = parseInt(prompt(mensaje + "\nIngrese la opción deseada o 0 para salir al menu anterior\n")) - 1;
-    if (opcion >= 0 && opcion < catalogo.length){
+    if (opcion >= 0 && opcion < catalogo.length) {
         carrito.push(catalogo[opcion]);
-        alert("Se añadió al carrito correctamente:\n" +
+        alert("Se añadió al carrito correctamente:\n\n" +
             `${catalogo[opcion].nombre} por $${catalogo[opcion].precio}.\n`
         )
-    } else if (opcion === -1){
+    } else if (opcion === -1) {
         return;
-    }else {
+    } else {
         mensajeError();
     }
 }
 //FUNCIÓN PARA CORRER EL MENÚ DEL CARRITO
-const mostrarCarrito = () =>{
-
+const mostrarCarrito = () => {
+    let mensaje = "Carrito de compras:\n\n"
+    for ( let i = 0; i < carrito.length; i++){
+        mensaje += `${carrito[i].nombre} - $${carrito[i].precio}`
+    }
+    alert(mensaje);
 }
 //FUNCIÓN PARA CORRER EL MENÚ DE LA COMPRA
-const mostrarCompra = () =>{
+const mostrarCompra = () => {
 
 }
 
