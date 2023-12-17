@@ -13,7 +13,7 @@ const vaciarCarrito = () => {
 const mostrarCatalogo = () => {
     let mensaje = "Catálogo de productos:\n\n"
     for (let i = 0; i < catalogo.length; i++) {
-        mensaje += `     ${i + 1}. ${catalogo[i].nombre} - $${catalogo[i].precio},00\n`;
+        mensaje += `     ${i + 1}. ${catalogo[i].nombre} - $${catalogo[i].precio}\n`;
     }
     let opcion = parseInt(prompt(mensaje + "\nIngrese la opción deseada o 0 para salir al menu anterior\n")) - 1;
     if (opcion >= 0 && opcion < catalogo.length) {
@@ -41,9 +41,9 @@ const mostrarCarrito = () => {
 const mostrarCompra = () => {
     mostrarCarrito();
     let total = carrito.reduce((sumaTotal, producto) => {
-        return sumaTotal + producto;
+        return sumaTotal + producto.precio;
     }, 0);
-    let confirmacion = prompt("¿Desea confirmar la compra?\n\n Escriba SI o NO").toLowerCase();
+    let confirmacion = prompt(`El total de la compra es de $${total}\n\n` + "¿Desea confirmar la compra?\n\n Escriba SI o NO").toLowerCase();
     if (confirmacion === "si") {
         alert("Compra realizada con éxito, !Muchas gracias por su compra!");
         carrito = [];
